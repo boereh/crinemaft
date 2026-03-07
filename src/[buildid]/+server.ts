@@ -1,6 +1,6 @@
 import { text } from '@sveltejs/kit';
 import { JSDOM } from 'jsdom';
-import type { RequestHandler } from './$types';
+import type { RequestHandler } from '../routes/$types';
 import { db } from '$lib/server/db';
 import { builds } from '$lib/server/tables';
 
