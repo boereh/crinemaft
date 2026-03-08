@@ -22,7 +22,7 @@ export default defineConfig({
 				presetWebFonts({
 					fonts: {
 						sans: {
-							name: 'Pixelify Sans',
+							name: 'Fusion Pixel 12px Monospaced SC',
 							provider: 'fontsource'
 						},
 						mc: {

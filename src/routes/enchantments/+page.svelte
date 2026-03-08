@@ -50,12 +50,12 @@
 
 <div class="p-4">
 	<div class="container mx-auto">
-		<h1 class=" text-center p-16 text-5xl">Enchantment Order</h1>
+		<h1 class="text-center py-16 text-3xl sm:text-4xl lg:text-5xl">Enchantment Order</h1>
 
-		<h3 class=" text-center p-16 text-lg">Item</h3>
+		<h3 class="text-center py-16 text-lg">Item</h3>
 
 		<div
-			class="border-0 border-neutral-700 -neutral-900 border-(b-neutral-800 r-neutral-800) grid xl:grid-cols-13 gap-4"
+			class="border-0 border-neutral-700 -neutral-900 border-(b-neutral-800 r-neutral-800) grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 xl:grid-cols-13 gap-4"
 		>
 			{#each ITEMS as item (item)}
 				<button
@@ -72,7 +72,7 @@
 					title={titleCase(item)}
 				>
 					<img
-						class="xl:h-12"
+						class="h-6 xl:h-12"
 						src="https://enchantment.tools/assets/img/tools/{item}.webp"
 						alt={item}
 					/>
@@ -82,7 +82,7 @@
 
 		<h3 class=" text-center p-16 text-lg">Enchantments</h3>
 
-		<div class="grid grid-cols-5 gap-4">
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 			{#if selected_item}
 				{#each ENCHANTMENTS.filter((v) => v.items.includes(selected_item)) as ench (ench.name)}
 					{@const is_incompatible = selected_enchantments.some((v) =>
