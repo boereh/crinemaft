@@ -1,29 +1,29 @@
 <script lang="ts">
 	import { T, useLoader } from '@threlte/core';
-	import { Align, CameraControls, Grid, Sky, Text3DGeometry } from '@threlte/extras';
-	import { MathUtils, Vector3, type Mesh } from 'three';
+	import { Align, Outlines, Text3DGeometry } from '@threlte/extras';
+	import { Color, MathUtils, type Mesh } from 'three';
 	import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 	let font = useLoader(FontLoader).load('/Minecraft Ten Lowercase_Regular.json');
 
 	let main_mesh = $state<Mesh>();
 	let zero_mesh = $state<Mesh>();
-	let scale_x = $state(0);
+	let text = $state('MINECRAFT');
 </script>
 
 <T.Scene>
 	<Align>
 		{#snippet children({ align })}
-			<T.Mesh
-				bind:ref={main_mesh}
-				scale={0.05}
-				rotation.x={MathUtils.degToRad(-90)}
-				oncreate={(ref) => {
-					console.log(ref);
-				}}
-			>
-				<Text3DGeometry text="MINECRAFT" font={$font} oncreate={align} />
-				<T.MeshStandardMaterial color="#FFF" />
-			</T.Mesh>
+			<T.Group>
+				<T.Mesh bind:ref={main_mesh} scale={0.05} rotation.x={MathUtils.degToRad(-90)}>
+					<Text3DGeometry {text} font={$font} oncreate={align} />
+					{#each { length: text.length }, idx (idx)}
+						<T.MeshStandardMaterial
+							color={new Color().setHSL((1 / text.length) * idx, 1, 0.5)}
+							clippingPlanes={[]}
+						/>
+					{/each}
+				</T.Mesh>
+			</T.Group>
 		{/snippet}
 	</Align>
 
@@ -37,7 +37,7 @@
 	/> -->
 
 	<!-- <Sky position={[0, 0, 0]} rotation.z={180} /> -->
-	<T.DirectionalLight scale={[1, 1, 1]} position={[0, 20, 5]} target={zero_mesh} />
+	<T.DirectionalLight intensity={5} scale={[1, 1, 1]} position={[0, 20, 5]} target={zero_mesh} />
 
 	<T.Mesh bind:ref={zero_mesh} position={[0, 0, 0]} />
 
@@ -48,9 +48,9 @@
 
 	<T.PerspectiveCamera
 		makeDefault
-		position.y={50}
-		position.z={25}
-		fov={25}
+		position.y={35}
+		position.z={35 * 0.7}
+		fov={35}
 		oncreate={(ref) => {
 			ref.lookAt(0, 0, 0);
 		}}
